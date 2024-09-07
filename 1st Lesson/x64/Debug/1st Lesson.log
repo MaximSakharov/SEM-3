@@ -1,0 +1,19 @@
+﻿  main.cpp
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(19,11): error C2059: синтаксическая ошибка: ]
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(20,14): error C2238: непредвиденные лексемы перед ";"
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(27,4): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(34,4): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(41,8): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(42,14): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(42,1): error C2541: delete: нельзя удалять объекты, не являющиеся указателями
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(46,11): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(59,4): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(64,11): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(81,28): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(86,28): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(87,11): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(88,11): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(92,15): error C2065: name: необъявленный идентификатор
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(114,9): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(116,3): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mksakharov\source\repos\1st Lesson\1st Lesson\main.cpp(117,3): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
