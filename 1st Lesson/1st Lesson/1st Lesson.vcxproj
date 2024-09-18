@@ -127,10 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sotrudnic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="employers.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base.hpp" />
+    <ClInclude Include="functions.hpp" />
+    <ClInclude Include="sotrudnic.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
