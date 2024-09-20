@@ -136,7 +136,7 @@
     <Text Include="employers.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base.hpp" />
+    <ClInclude Include="base.h" />
     <ClInclude Include="functions.hpp" />
     <ClInclude Include="sotrudnic.hpp" />
   </ItemGroup>

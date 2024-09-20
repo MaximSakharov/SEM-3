@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 // k - реальная размерность массива
 int Create_f(const char* namefile, int& k, Sotrudnik* arr_)
 {
