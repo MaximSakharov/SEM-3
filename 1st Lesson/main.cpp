@@ -1,6 +1,13 @@
+#pragma warning (disable: 4996)
+#include "sotrudnic.hpp" 
+#include "base.h"
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
+
+#include "functions.hpp"
+
 using namespace std;
 
 /*
@@ -13,111 +20,38 @@ class <Name>
 };
 */
 
-
-class Sotrudnik
+/*
+int main()
 {
-	[private:]
-			char* name;		//Фамилия и инициалы
-			int year;
-			float sal;
-			char data[11];
-	public:
-		Sotrudnik()
-		{
-			name = new char[31];
-			year = 0;
-			sal = 0.0;
-			data[0] = '\0';
-		}
-		Sotrudnik(int n)
-		{
-			name = new char[n];
-			year = 0;
-			sal = 0.0;
-			data[0] = '\0';
-		}
-		~Sotrudnik()
-		{
-			if (name != NULL)
-				delete[] name;
-		}
-		void SetName(char* s)
-		{
-			strcpy(name, s);
+	setlocale(LC_ALL, "RU");
 
-		}
-		void SetYear(int year1)
-		{
-			year = year1;
-		}
-		void SetSal(float sal1)
-		{
-			sal = sal1;
-		}
-		void SetData(char* s)
-		{
-			strcpy(data, s);
-		}
+	Sotrudnik arr[100];
+	char** full_name = new char*[100];
 
-		char* GetName()
-		{
-			return name;
-		}
-		int GetYear()
-		{
-			return year;
-		}
-		float GetSal()
-		{
-			return sal;
-		}
-		char* GetData()
-		{
-			return data;
-		}
+	int size = 0;
+	int k = 0;
+	float salary = 0;
 
-		void Print()
-		{
-			printf("%s %d %f %s\n", name, year, sal, data);
-		}
-		void Vvod()
-		{
-			char inic[5];
-			scanf("%s %s %d %f %s", name, inic, &year, &sal, data);
-			strcat(name, " ");
-			strcat(name, inic);
-		}
-		bool Sif(char* s)
-		{
-			if (strcmp(name, s) == NULL)
-				return true;
-			else
-				return false;
-		};
-};
+	Create_f("employers.txt", size, arr);
+	salary = EmployersMore25(arr, size, k, full_name, "13.09.2024");
 
-// k - реальная размерность массива
-int Create_f(char* namefile, int& k, Sotrudnik* arr_)
-{
-	FILE* fp;
-	fopen_s(&fp, "namefile", "r");
+	printf("Average salary = %f\n", salary);
 
-	if (!fp)
-		return -1;
+	for (int i = 0; i < k; ++i)
+		printf("%s\n", full_name[i]);
 
-	char FIO[30];
-	char inc[5];
-	int io;
-	float oklad;
-	char dat[11];
-
-	while (fscanf_s(fp, "%s %s %d %f %s", FIO, inc, &io, &oklad, dat) == 5)
-	{
-		strcat(FIO, " ");
-		strcat(FIO, inc);
-		arr_[k].SetYear(io);
-		arr_[k].SetName(FIO);
-		arr_[k].SetSal(oklad);
-		arr_[k].SetData(dat);
-	}
+	return 0;
 }
+*/
+
+int main()
+{
+   setlocale(LC_ALL, "RU");
+
+   Base base(100);
+
+	Work_Base(base);
+
+   return 0;
+}
+
