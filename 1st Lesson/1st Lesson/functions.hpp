@@ -8,3 +8,5 @@
 void Print_Menu();
 
 int get_variant(int count);
+
+char* InsertName();

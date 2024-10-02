@@ -11,25 +11,12 @@ private:
 	float sal;
 	char data[11];
 public:
-	Sotrudnik()
-	{
-		name = new char[31];
-		year = 0;
-		sal = 0.0;
-		data[0] = '\0';
-	}
-	Sotrudnik(int n)
-	{
-		name = new char[n];
-		year = 0;
-		sal = 0.0;
-		data[0] = '\0';
-	}
-	~Sotrudnik()
-	{
-		if (name != NULL)
-			delete[] name;
-	}
+	Sotrudnik();
+
+	Sotrudnik(int n);
+
+	~Sotrudnik();
+
 	void SetName(char* s)
 	{
 		strcpy(name, s);
@@ -62,25 +49,13 @@ public:
 	{
 		return data;
 	}
-
 	void Print()
 	{
 		printf("%-20s %-10d %-10.2f %-20s\n", name, year, sal, data);
 	}
-	void Insert()
-	{
-		char inic[5];
-		scanf("%s %s %d %f %s", name, inic, &year, &sal, data);
-		strcat(name, " ");
-		strcat(name, inic);
-	}
-	bool Sif(char* s)
-	{
-		if (strcmp(name, s) == NULL)
-			return true;
-		else
-			return false;
-	}
+	void Insert();
+
+	bool Sif(char* s);
 };
 
 int Create_f(const char* namefile, int& k, Sotrudnik* arr_);

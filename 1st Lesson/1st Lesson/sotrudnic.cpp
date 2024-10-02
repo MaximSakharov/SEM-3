@@ -4,6 +4,43 @@
 #include <string.h>
 #include <stdlib.h>
 
+Sotrudnik::Sotrudnik()
+{
+	name = new char[31];
+	year = 0;
+	sal = 0.0;
+	data[0] = '\0';
+}
+
+Sotrudnik::Sotrudnik(int n)
+{
+	name = new char[n];
+	year = 0;
+	sal = 0.0;
+	data[0] = '\0';
+}
+
+Sotrudnik::~Sotrudnik()
+{
+	if (name != NULL)
+		delete[] name;
+}
+
+void Sotrudnik::Insert()
+{
+	char inic[5];
+	scanf("%s %s %d %f %s", name, inic, &year, &sal, data);
+	strcat(name, " ");
+	strcat(name, inic);
+}
+
+bool Sotrudnik::Sif(char* s)
+{
+	if (strcmp(name, s) == NULL)
+		return true;
+	else
+		return false;
+}
 
 // k - реальная размерность массива
 int Create_f(const char* namefile, int& k, Sotrudnik* arr_)

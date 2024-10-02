@@ -1,3 +1,5 @@
+#pragma warning (disable: 4996)
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
@@ -14,6 +16,7 @@ Base::Base()
 	employers = new Sotrudnik[size];
 	for (int i = 0; i < size; ++i)
 		employers[i];
+	
 }
 
 Base::Base(int n)
@@ -62,7 +65,7 @@ void Base::Print_Base()
 	for (int i = 0; i < count; ++i)
 		employers[i].Print();
 }
-void Base::Insert_In_Base()
+void Base::Insert_In_Base(Sotrudnik& new_emp)
 {
 	if (count == 0) {
 		employers = new Sotrudnik[1];
@@ -71,6 +74,31 @@ void Base::Insert_In_Base()
 		return;
 	}
 
+	int pos = 0;
+	int flag = 0;
+
+	Sotrudnik* new_emps = new Sotrudnik[count + 1];
+
+	for (size_t i = 0; i < count; i++)
+	{
+		if (flag == 0 && strcmp(employers[i].GetName(), new_emp.GetName()) > 0)
+		{
+			if (flag == 0)
+				pos = (int)i;
+			flag = 1;
+			new_emps[i + flag] = employers[i];
+		}
+		else
+			new_emps[i + flag] = employers[i];
+	}
+
+	new_emps[pos] = new_emp;
+
+	employers = new_emps;
+	++count;
+	size = count;
+
+	/*
 	if (count < size) {
 		employers[count].Insert(); 
 	}
@@ -80,47 +108,29 @@ void Base::Insert_In_Base()
 	}
 
 	++count; 
+	*/
 }
-void Base::Delete_Data()
+void Base::Delete_Data(char* name_)
 {
-	char name[31];
-	char inic[5];
-
-	printf("Insert name: ");
-	scanf("%s", name);
-	scanf("%s", inic);
-
-	strcat(name, " ");
-	strcat(name, inic);
-
 	int k = 0;
 
-	while (k < size && strcmp(name, employers[k].GetName()) != 0)
+	while (k < size && strcmp(name_, employers[k].GetName()) != 0)
 	{
 		++k;
 	}
 
 	if (k < size) { 
-		for (int j = k; j < size - 1; ++j)
+		for (int j = k; j < count - 1; ++j)
 		{
 			employers[j] = employers[j + 1];
 		}
-		--count; 
+		--count;
 	}
+
+	printf("Employee succefully delete.\n");
 }
-void Base::Data_Correction()
+void Base::Data_Correction(char* name_)
 {
-	char name[31];
-	char inic[5];
-
-	printf("Insert name: ");
-	scanf("%s", name);
-	scanf("%s", inic);
-
-	strcat(name, " ");
-	strcat(name, inic);
-
-
 	char new_name[31];
 	char new_inic[5];
 	int new_year = 0;
@@ -128,11 +138,13 @@ void Base::Data_Correction()
 	char new_date[11];
 
 	int k = 0;
-	while (k < count && strcmp(name, employers[k].GetName()) != 0) {
+
+	while (k < size && strcmp(name_, employers[k].GetName()) != 0) 
+	{
 		++k;
 	}
 
-	if (k < count) 
+	if (k < size) 
 	{ 
 		printf("Insert new data: ");
 		while (scanf("%s %s %d %f %s", new_name, new_inic, &new_year, &new_salary, new_date) != 5);
@@ -149,8 +161,24 @@ void Base::Data_Correction()
 		printf("Сотрудник не найден.\n");
 	}
 }
-void Base::Copy_Base()
+int Base::Copy_Base(const char* filename_)
 {
+	if (!filename_)
+		return -1;
+
+	FILE* fp;
+	fopen_s(&fp, filename_, "w");
+	if (!fp)
+		return -2;
+
+	for (int i = 0; i < count; ++i)
+		fprintf_s(fp, "%s %d %f %s\n", employers[i].GetName(), employers[i].GetYear(), employers[i].GetSal(), employers[i].GetData());
+
+	printf("File was filled.\n");
+
+	fclose(fp);
+
+	return 0;
 }
 
 void Base::Base_Expansion()
@@ -163,13 +191,15 @@ void Base::Base_Expansion()
 		newEmployers[i] = this->employers[i]; 
 
 	this->employers = newEmployers;
-	this->size = newSize; 
+	this->size = newSize;
 }
 
 void Work_Base(Base& base)
 {
 	int variant = 0;
 	char* filename_in = new char[100];
+	char* name;
+	Sotrudnik emp;
 
 	while (variant != 7)
 	{
@@ -188,16 +218,21 @@ void Work_Base(Base& base)
 			base.Print_Base();
 			break;
 		case 3:
-			base.Insert_In_Base();
+			emp.Insert();
+			base.Insert_In_Base(emp);
 			break;
 		case 4:
-			base.Delete_Data();
+			name = InsertName();
+			base.Delete_Data(name);
 			break;
 		case 5:
-			base.Data_Correction();
+			name = InsertName();
+			base.Data_Correction(name);
 			break;
 		case 6:
-			base.Copy_Base();
+			printf("Insert file name: ");
+			scanf("%s", filename_in);
+			base.Copy_Base(filename_in);
 			break;
 		}
 		if (variant != 7)

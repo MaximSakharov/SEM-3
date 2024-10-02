@@ -1,3 +1,5 @@
+#pragma warning (disable: 4996)
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
@@ -29,4 +31,19 @@ int get_variant(int count)
    }
 
    return variant;
+}
+
+char* InsertName()
+{
+	char* name = new char[31];
+	char* inic = new char[5];
+
+	printf("Insert name: ");
+	scanf("%s", name);
+	scanf("%s", inic);
+
+	strcat(name, " ");
+	strcat(name, inic);
+
+	return name;
 }

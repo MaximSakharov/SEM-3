@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="employers.txt" />
+    <Text Include="NewEmp.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h" />
