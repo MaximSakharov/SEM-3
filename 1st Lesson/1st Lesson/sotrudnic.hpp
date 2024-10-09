@@ -17,6 +17,8 @@ public:
 
 	~Sotrudnik();
 
+	Sotrudnik(const Sotrudnik& emp);
+
 	void SetName(char* s)
 	{
 		strcpy(name, s);
@@ -53,6 +55,27 @@ public:
 	{
 		printf("%-20s %-10d %-10.2f %-20s\n", name, year, sal, data);
 	}
+
+	Sotrudnik& operator = (Sotrudnik& emp)
+	{
+		if (&emp == this) return *this;
+		if (name)
+			delete[] name;
+
+		if (emp.name)
+		{
+			name = new char[strlen(emp.name) + 1];
+			strcpy(name, emp.name);
+		}
+		else
+			name = (char*)'\0';
+		year = emp.year;
+		sal = emp.sal;
+		strcpy(data, emp.data);
+
+		return *this;
+	}
+
 	void Insert();
 
 	bool Sif(char* s);

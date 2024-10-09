@@ -9,19 +9,23 @@ class Base {
 private:
    int size;
    Sotrudnik* employers;
-   static int count;
+   int count;
 public:
    Base();
    Base(int n);
    ~Base();
+   Base(const Base& base_);
+   Base& operator = (Base& base_);
+   Sotrudnik& operator[](int index_);
    int Get_Size() { return size; };
-   void Create_Base(const char* namefile);
+   int Create_Base(const char* namefile);
    void Print_Base();
    void Insert_In_Base(Sotrudnik& new_emp);
-   void Delete_Data(char* name_);
-   void Data_Correction(char* name_);
+   int Delete_Data(char* name_);
+   int Data_Correction(char* name_);
    int Copy_Base(const char* filename);
    void Base_Expansion();
+
 };
 
 void Work_Base(Base& base);

@@ -8,36 +8,85 @@
 #include "base.h"
 #include "functions.hpp"
 
-int Base::count = 0;
+//int Base::count = 0;
 
 Base::Base()
 {
-	size = 0;
+	size = 100;
+	count = 0;
 	employers = new Sotrudnik[size];
 	for (int i = 0; i < size; ++i)
 		employers[i];
-	
 }
 
 Base::Base(int n)
 {
 	size = n;
+	count = 0;
 	employers = new Sotrudnik[size];
 	for (int i = 0; i < size; ++i)
 		employers[i];
 }
+
 Base::~Base()
 {
 	if (employers)
 		delete[] employers;
 }
-void Base::Create_Base(const char* namefile)
+
+Base::Base(const Base& base_)
 {
+	employers = nullptr;
+	if (base_.employers != nullptr)
+	{
+		employers = new Sotrudnik[base_.size];
+
+		for (int i = 0; i < count; i++)
+			employers[i] = base_.employers[i];
+	}
+
+	size = base_.size;
+	count = base_.count;
+}
+
+Base& Base::operator = (Base& base_)
+{
+	if (&base_ == this) return *this;
+
+	size = base_.size;
+	count = base_.count;
+	if (base_.employers != nullptr)
+	{
+		employers = new Sotrudnik[base_.size];
+
+		for (int i = 0; i < count; i++)
+			employers[i] = base_.employers[i];
+	}
+	else
+		employers = nullptr;
+
+	return *this;
+}
+
+Sotrudnik& Base::operator[](int index_)
+{
+	if (index_ < 0 || index_ > size)
+		exit(1);
+	else
+		return employers[index_];
+}
+
+
+int Base::Create_Base(const char* namefile)
+{
+	if (!namefile)
+		return -1;
+
 	FILE* fp;
 	fopen_s(&fp, namefile, "r");
 
 	if (!fp)
-		return;
+		return -1;
 
 	char FIO[31];
 	char inc[5];
@@ -55,9 +104,14 @@ void Base::Create_Base(const char* namefile)
 		employers[count].SetData(dat);
 
 		++count;
+
+		if (count == size)
+			Base_Expansion();
 	}
 
 	fclose(fp);
+
+	return 0;
 }
 void Base::Print_Base()
 {
@@ -70,18 +124,18 @@ void Base::Insert_In_Base(Sotrudnik& new_emp)
 	if (count == 0) {
 		employers = new Sotrudnik[1];
 		count = 1;
-		employers[0].Insert();
+		employers[0] = new_emp;
 		return;
 	}
 
-	int pos = 0;
-	int flag = 0;
+	int pos = count;
+	bool flag = false;
 
 	Sotrudnik* new_emps = new Sotrudnik[count + 1];
 
 	for (size_t i = 0; i < count; i++)
 	{
-		if (flag == 0 && strcmp(employers[i].GetName(), new_emp.GetName()) > 0)
+		if (flag == false && strcmp(employers[i].GetName(), new_emp.GetName()) > 0)
 		{
 			if (flag == 0)
 				pos = (int)i;
@@ -110,8 +164,11 @@ void Base::Insert_In_Base(Sotrudnik& new_emp)
 	++count; 
 	*/
 }
-void Base::Delete_Data(char* name_)
+int Base::Delete_Data(char* name_)
 {
+	if (!name_)
+		return -1;
+
 	int k = 0;
 
 	while (k < size && strcmp(name_, employers[k].GetName()) != 0)
@@ -126,11 +183,25 @@ void Base::Delete_Data(char* name_)
 		}
 		--count;
 	}
+	/*
+	if (k < size) {
+		for (int j = k; j < count - 1; ++j)
+		{
+			this[j] = this[j + 1];
+		}
+		--count;
+	}
+	*/
 
-	printf("Employee succefully delete.\n");
+	//printf("Employee succefully delete.\n");
+
+	return 0;
 }
-void Base::Data_Correction(char* name_)
+int Base::Data_Correction(char* name_)
 {
+	if (!name_)
+		return -1;
+
 	char new_name[31];
 	char new_inic[5];
 	int new_year = 0;
@@ -144,8 +215,8 @@ void Base::Data_Correction(char* name_)
 		++k;
 	}
 
-	if (k < size) 
-	{ 
+	if (k < size)
+	{
 		printf("Insert new data: ");
 		while (scanf("%s %s %d %f %s", new_name, new_inic, &new_year, &new_salary, new_date) != 5);
 
@@ -157,9 +228,10 @@ void Base::Data_Correction(char* name_)
 		employers[k].SetSal(new_salary);
 		employers[k].SetData(new_date);
 	}
-	else {
-		printf("Сотрудник не найден.\n");
-	}
+	else
+		return -2;
+
+	return 0;
 }
 int Base::Copy_Base(const char* filename_)
 {
@@ -201,6 +273,8 @@ void Work_Base(Base& base)
 	char* name;
 	Sotrudnik emp;
 
+	int flag = 0;
+
 	while (variant != 7)
 	{
 		Print_Menu();
@@ -212,27 +286,41 @@ void Work_Base(Base& base)
 		case 1:
 			printf("Insert file name: ");
 			scanf("%s", filename_in);
-			base.Create_Base(filename_in);
+			if (base.Create_Base(filename_in) != 0)
+				printf("Error filename.\n");
+			else
+				printf("The base was created.\n");
 			break;
 		case 2:
 			base.Print_Base();
 			break;
 		case 3:
+			printf("Insert file name: ");
 			emp.Insert();
 			base.Insert_In_Base(emp);
 			break;
 		case 4:
 			name = InsertName();
-			base.Delete_Data(name);
+			if (base.Delete_Data(name)==0)
+				printf("Employee succefully delete.\n");
 			break;
 		case 5:
 			name = InsertName();
-			base.Data_Correction(name);
+			flag = base.Data_Correction(name);
+			if (flag == 0)
+				printf("Employee was corrected.\n");
+			else if (flag == -1)
+				printf("Not correct name.\n");
+			else
+				printf("There is no employee with this name in the database.\n");
 			break;
 		case 6:
 			printf("Insert file name: ");
 			scanf("%s", filename_in);
-			base.Copy_Base(filename_in);
+			if (base.Copy_Base(filename_in) == 0)
+				printf("The base was copied.\n");
+			else
+				printf("Error filename.\n");
 			break;
 		}
 		if (variant != 7)
