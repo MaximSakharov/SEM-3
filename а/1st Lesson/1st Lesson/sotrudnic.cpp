@@ -35,8 +35,6 @@ Sotrudnik::Sotrudnik(const Sotrudnik& emp)
 	strcpy(data, emp.data);
 }
 
-
-
 void Sotrudnik::Insert()
 {
 	char inic[5];
@@ -47,10 +45,7 @@ void Sotrudnik::Insert()
 
 bool Sotrudnik::Sif(char* s)
 {
-	if (strcmp(name, s) == NULL)
-		return true;
-	else
-		return false;
+	return !strcmp(name, s);
 }
 
 // k - реальная размерность массива

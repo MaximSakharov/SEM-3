@@ -16,6 +16,7 @@ public:
    ~Base();
    Base(const Base& base_);
    Base& operator = (Base& base_);
+   Sotrudnik& operator[](int index_);
    int Get_Size() { return size; };
    int Create_Base(const char* namefile);
    void Print_Base();

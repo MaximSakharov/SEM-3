@@ -12,12 +12,11 @@
 
 Base::Base()
 {
-	size = 0;
+	size = 100;
 	count = 0;
 	employers = new Sotrudnik[size];
 	for (int i = 0; i < size; ++i)
 		employers[i];
-	
 }
 
 Base::Base(int n)
@@ -28,22 +27,22 @@ Base::Base(int n)
 	for (int i = 0; i < size; ++i)
 		employers[i];
 }
+
 Base::~Base()
 {
 	if (employers)
 		delete[] employers;
 }
 
-
 Base::Base(const Base& base_)
 {
 	employers = nullptr;
 	if (base_.employers != nullptr)
 	{
-	employers = new Sotrudnik[base_.size];
+		employers = new Sotrudnik[base_.size];
 
-	for (int i = 0; i < count; i++)
-		employers[i] = base_.employers[i];
+		for (int i = 0; i < count; i++)
+			employers[i] = base_.employers[i];
 	}
 
 	size = base_.size;
@@ -67,6 +66,14 @@ Base& Base::operator = (Base& base_)
 		employers = nullptr;
 
 	return *this;
+}
+
+Sotrudnik& Base::operator[](int index_)
+{
+	if (index_ < 0 || index_ > size)
+		exit(1);
+	else
+		return employers[index_];
 }
 
 
@@ -121,14 +128,14 @@ void Base::Insert_In_Base(Sotrudnik& new_emp)
 		return;
 	}
 
-	int pos = 0;
-	int flag = 0;
+	int pos = count;
+	bool flag = false;
 
 	Sotrudnik* new_emps = new Sotrudnik[count + 1];
 
 	for (size_t i = 0; i < count; i++)
 	{
-		if (flag == 0 && strcmp(employers[i].GetName(), new_emp.GetName()) > 0)
+		if (flag == false && strcmp(employers[i].GetName(), new_emp.GetName()) > 0)
 		{
 			if (flag == 0)
 				pos = (int)i;
@@ -176,6 +183,15 @@ int Base::Delete_Data(char* name_)
 		}
 		--count;
 	}
+	/*
+	if (k < size) {
+		for (int j = k; j < count - 1; ++j)
+		{
+			this[j] = this[j + 1];
+		}
+		--count;
+	}
+	*/
 
 	//printf("Employee succefully delete.\n");
 
@@ -279,6 +295,7 @@ void Work_Base(Base& base)
 			base.Print_Base();
 			break;
 		case 3:
+			printf("Insert file name: ");
 			emp.Insert();
 			base.Insert_In_Base(emp);
 			break;
