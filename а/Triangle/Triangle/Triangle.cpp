@@ -3,20 +3,48 @@
 #include "Triangle.hpp"
 #include "functions.hpp"
 
-static int count = 0;
+double Point::VectorLength(Point point_)
+{
+   return Pythag(point_, Point());
+}
+
+static int amount = 0;
 
 Triangle::Triangle()
    : vertex1(0, 0), vertex2(0, 0), vertex3(0, 0)
 {
-
+   name = new char[100];
+   strcpy(name, "Triangle");
+   
+   sprintf(name, "Triangle %d ", count);
 }
 
-Triangle::Triangle(Point v1_, Point v2_, Point v3_)
+
+Triangle::Triangle(Point v1_ = (0, 0), Point v2_ = (0, 0), Point v3_ = (0, 0))
    : vertex1(v1_), vertex2(v2_), vertex3(v3_)
 {
    side1 = Pythag(vertex1, vertex2); // –ассто€ние между первой и второй вершиной
    side2 = Pythag(vertex2, vertex3); // –ассто€ние между второй и третьей вершиной
    side3 = Pythag(vertex1, vertex3); // –ассто€ние между первой и третьей вершиной
+
+   count++;
+
+   name = new char[100];
+   strcpy(name, "Triangle");
+
+   sprintf(name, "Triangle %d", count);
+}
+
+Triangle::Triangle(const Triangle& other_)
+   :vertex1(other_.vertex1), vertex2(other_.vertex2), vertex3(other_.vertex3), side1(other_.side1), side2(other_.side2), side3(other_.side3)
+{
+   if (other_.name) {
+      name = new char[std::strlen(other_.name) + 1];
+      std::strcpy(name, other_.name);
+   }
+   else {
+      name = nullptr;
+   }
 }
 
 double Triangle::TriangleArea() 
@@ -33,6 +61,29 @@ double Triangle::TriangleArea()
    double area = sqrt(s * (s - side1) * (s - side2) * (s - side3));
 
    return area;
+}
+
+Triangle& Triangle::operator=(const Triangle& other_) 
+{
+   if (this != &other_) 
+   {
+      delete[] name;
+
+      vertex1 = other_.vertex1;
+      vertex2 = other_.vertex2;
+      vertex3 = other_.vertex3;
+      side1 = other_.side1;
+      side2 = other_.side2;
+      side3 = other_.side3;
+
+      if (other_.name) {
+         name = new char[std::strlen(other_.name) + 1];
+         strcpy(name, other_.name);
+      }
+      else 
+         name = nullptr;
+   }
+   return *this;
 }
 
 bool Triangle::operator>(Triangle& triangle_)
@@ -87,7 +138,7 @@ bool Triangle::InTriangle(Triangle& triangle_)
 
 void DeleteTriangle(Triangle* triangle_, int k)
 {
-   for (int i = k - 1; i < count; ++i)
+   for (int i = k - 1; i < amount; ++i)
       triangle_[i] = triangle_[i + 1];
 }
 
@@ -115,7 +166,7 @@ void Work_Triangle(Triangle* triangle_)
 		switch (variant)
 		{
 		case 1:
-         for (int i = 0; i < count; ++i)
+         for (int i = 0; i < amount; ++i)
          {
             printf("%d ", i + 1);
             triangle_[i].Print();
@@ -130,8 +181,9 @@ void Work_Triangle(Triangle* triangle_)
          p2.ChangeCoor(x, y); 
          scanf("%lf %lf", &x, &y);
          p3.ChangeCoor(x, y);
-         triangle_[count] = Triangle(p1, p2, p3);
-         ++count;
+         triangle_[amount] = Triangle(p1, p2, p3);
+         ++amount;
+         //triangle_[amount].IncreaseCount();
          printf("\n");
 			break;
 		case 3:
@@ -141,6 +193,7 @@ void Work_Triangle(Triangle* triangle_)
          scanf("%lf %lf", &x, &y);
          triangle_[num1 - 1].Move(x, y);
          printf("\n");
+         
 			break;
 		case 4:
          printf("Insert number of triangle: ");
@@ -154,7 +207,7 @@ void Work_Triangle(Triangle* triangle_)
          printf("Insert number of second triangle: ");
          scanf("%d", &num2);
          if (triangle_[num1 - 1] > triangle_[num2 - 1])
-            printf("Triangle number %d > Triangle number %d", num1, num2);
+            printf("%s > %s", triangle_[num1 - 1].GetName(), triangle_[num2 - 1].GetName());
          else
             printf("Triangle number %d <= Triangle number %d", num1, num2);
          printf("\n");
@@ -174,7 +227,7 @@ void Work_Triangle(Triangle* triangle_)
          printf("Insert number of triangle to delete: ");
          scanf("%d", &num1);
          DeleteTriangle(triangle_, num1);
-         --count;
+         --amount;
          printf("\n");
          break;
 		}

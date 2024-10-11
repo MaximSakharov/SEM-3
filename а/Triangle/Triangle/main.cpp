@@ -6,11 +6,13 @@
 
 using namespace std;
 
+int Triangle::count = 0;
+
 int main()
 {
    setlocale(LC_ALL, "RU");
 
-   Triangle triangle[100];
+   Triangle* triangle = new Triangle[100];
 
    Work_Triangle(triangle);
 

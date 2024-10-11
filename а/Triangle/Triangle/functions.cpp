@@ -39,7 +39,7 @@ void Print_Menu()
    printf("1. Print Triangles.\n");
    printf("2. Insert Triangle.\n");
    printf("3. Move Triangle.\n");
-   printf("4. Ñalculate the area of ??a triangle.\n");
+   printf("4. Ñalculate the area of a triangle.\n");
    printf("5. Compare Triagles.\n");
    printf("6. Determine the entry into the triangle.\n");
    printf("7. Delete triangle.\n");
