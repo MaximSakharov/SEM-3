@@ -24,6 +24,7 @@ public:
    double VectorLength(Point point_);
 };
 
+
 class Triangle
 {
 private:
@@ -36,8 +37,8 @@ private:
    double side2;
    double side3;
 public:
-   Triangle();
-   Triangle(Point v1_, Point v2_, Point v3_);
+   //Triangle();
+   Triangle(Point v1_ = (0, 0), Point v2_ = (0, 0), Point v3_ = (0, 0));
    ~Triangle() { delete[] name; }
    Triangle(const Triangle& other_);
    Point GetVertex1() { return vertex1; };
@@ -58,6 +59,16 @@ public:
    bool operator==(Triangle& triangle_);
    bool operator!=(Triangle& triangle_);
    void Print() { printf("%s ", name); vertex1.Print(); vertex2.Print(); vertex3.Print(); }
+   static Triangle* CreateTriangleArray(int size) 
+   {
+      int save_count = count;
+
+      Triangle* triangles = new Triangle[size];
+
+      count = save_count;
+
+      return triangles;
+   }
 };
 
 
