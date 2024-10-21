@@ -1,4 +1,5 @@
 #include <iostream>
+#include <locale.h>
 
 #include "vector.hpp"
 /*
@@ -82,12 +83,13 @@ public:
 
 int main() 
 {
-   
+   setlocale(LC_ALL, "RU");
+
    double arr1[] = { 1.0, 2.0, 3.0 };
    double arr2[] = { 4.0, 5.0, 6.0 };
 
-   Vector v1(3, arr1);
-   Vector v2(3, arr2);
+   Vector v1(arr1, 3);
+   Vector v2(arr2, 3);
 
    std::cout << "Вектор v1: ";
    v1.Print();
@@ -103,9 +105,31 @@ int main()
    std::cout << "Разность v1 и v2: ";
    diff.Print();
 
+   v1 += v2;
+   std::cout << "Сумма v1 и v2: ";
+   v1.Print();
+
+   v1 -= v2;
+   std::cout << "Разность v1 и v2: ";
+   v1.Print();
+
+   Vector cant = v1 & v2;
+   std::cout << "Конкатенация v1 и v2: ";
+   cant.Print();
+   /*
+   v1 &= v2;
+   std::cout << "Конкатенация v1 и v2: ";
+   v1.Print();
+   */
+
+   printf("%d\n", v1 == v2);
+   printf("%d\n", v1 != v2);
+
+   /*
    Vector concatenated = v1.concatenate(v2);
    std::cout << "Конкатенация v1 и v2: ";
    concatenated.Print();
+   */
 
    return 0;
 }
