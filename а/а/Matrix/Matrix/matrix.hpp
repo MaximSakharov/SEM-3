@@ -29,11 +29,16 @@ public:
 
       delete[] data;
    }
+   double* operator[](int i)
+   {
+       return data[i];
+   }
+
    virtual void Print()
    {
       for (int i = 0; i < rows; i++)
       {
-         for (int j = 0; j < rows; j++)
+         for (int j = 0; j < columns; j++)
             printf("%f ", data[i][j]);
          printf("\n");
       }

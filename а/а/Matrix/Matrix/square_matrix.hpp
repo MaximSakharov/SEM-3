@@ -35,6 +35,7 @@ public:
             data[i][j] = other_.data[i][j];
       }
    }
+
    using Matrix::operator=;
    using Matrix::operator+;
    using Matrix::operator+=;
@@ -152,7 +153,7 @@ public:
       return matrix;
    }
    
-
+   */
    SquareMatrix operator/(const SquareMatrix& other_) const
    {
       SquareMatrix matrix(rows);
@@ -175,7 +176,7 @@ public:
 
       return matrix;
    }
-
+   /*
    SquareMatrix& operator+=(const SquareMatrix& other_)
    {
       for (int i = 0; i < rows; ++i)
@@ -232,7 +233,8 @@ public:
    }
    
    
-   /*
+   */
+
    SquareMatrix operator/=(const SquareMatrix& other_)
    {
       SquareMatrix matrix2 = other_;
@@ -254,8 +256,8 @@ public:
       }
       return *this;
    }
-   */
-     
+   
+   /*
    /*
    bool operator==(SquareMatrix& other_)
    {

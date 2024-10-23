@@ -8,9 +8,12 @@
 
 int main()
 {
-   
-   
-   return 0;
+
+    Matrix* arr = new Matrix[2];
+
+    WorkWithMatrix(arr);
+
+    return 0;
 }
 
 
