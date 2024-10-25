@@ -29,6 +29,10 @@ public:
 
    double Length() const { return sqrt(x * x + y * y); }
    
+   bool PointInTriangle(Triangle& triangle_);
+
+
+
 };
 
 
@@ -58,7 +62,7 @@ public:
    void IncreaseCount() { ++count; }
    double TriangleArea();
    void Move(double x_, double y_);
-   bool PointInTriangle(Point& point_);
+   
    bool InTriangle(Triangle& triangle_);
    Triangle& operator=(const Triangle& other_);
    bool operator>(Triangle& triangle_);
@@ -78,9 +82,9 @@ public:
       return triangles;
    }
 
-/*
-   Функция ORIENT классифицирует положение точки current_p относительно отрезка, заданного точками beg_p и end_p. 
-   Она использует векторный подход для определения следующего:
+   /*
+Функция ORIENT классифицирует положение точки current_p относительно отрезка, заданного точками beg_p и end_p.
+Она использует векторный подход для определения следующего:
 
 - LEFT: точка слева от отрезка.
 - RIGHT: точка справа от отрезка.

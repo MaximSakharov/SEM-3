@@ -122,7 +122,7 @@ void Triangle::Move(double x_, double y_)
    vertex3.SetY(vertex3.GetY() + y_);
 }
 
-double TriangleArea2(Point& point1_, Point& point2_, Point& point3_)
+double TriangleArea2(const Point& point1_, const Point& point2_, const Point& point3_)
 {
    double sub_side1 = Pythag(point1_, point2_);
    double sub_side2 = Pythag(point2_, point3_);
@@ -136,37 +136,40 @@ double TriangleArea2(Point& point1_, Point& point2_, Point& point3_)
    return area;
 }
 
-bool Triangle::PointInTriangle(Point& point_)
+bool Point::PointInTriangle(Triangle& triangle_)
 {
-   double total_area = TriangleArea();
-   double area1 = TriangleArea2(vertex1, vertex2, point_);
-   double area2 = TriangleArea2(vertex2, vertex3, point_);
-   double area3 = TriangleArea2(vertex3, vertex1, point_);
+   //2
+   /*
+   double total_area = triangle_.TriangleArea();
+   double area1 = TriangleArea2(triangle_.GetVertex1(), triangle_.GetVertex2(), *this);
+   double area2 = TriangleArea2(triangle_.GetVertex2(), triangle_.GetVertex3(), *this);
+   double area3 = TriangleArea2(triangle_.GetVertex3(), triangle_.GetVertex1(), *this);
 
    return fabs(total_area - (area1 + area2 + area3)) < epsilon;
+   */
 
-   /*
-   double param1 = ((vertex1.GetX() - point_.GetX()) * (vertex2.GetY() - vertex1.GetY()) - (vertex2.GetX() - vertex1.GetX()) * (vertex1.GetY() - point_.GetY()));
-   double param2 = ((vertex2.GetX() - point_.GetX()) * (vertex3.GetY() - vertex2.GetY()) - (vertex3.GetX() - vertex2.GetX()) * (vertex2.GetY() - point_.GetY()));
-   double param3 = ((vertex3.GetX() - point_.GetX()) * (vertex1.GetY() - vertex3.GetY()) - (vertex1.GetX() - vertex3.GetX()) * (vertex3.GetY() - point_.GetY()));
+   //1
+   double param1 = ((triangle_.GetVertex1().GetX() - x) * (triangle_.GetVertex2().GetY() - triangle_.GetVertex1().GetY()) - (triangle_.GetVertex2().GetX() - triangle_.GetVertex1().GetX()) * (triangle_.GetVertex1().GetY() - y));
+   double param2 = ((triangle_.GetVertex2().GetX() - x) * (triangle_.GetVertex3().GetY() - triangle_.GetVertex2().GetY()) - (triangle_.GetVertex3().GetX() - triangle_.GetVertex2().GetX()) * (triangle_.GetVertex2().GetY() - y));
+   double param3 = ((triangle_.GetVertex3().GetX() - x) * (triangle_.GetVertex1().GetY() - triangle_.GetVertex3().GetY()) - (triangle_.GetVertex1().GetX() - triangle_.GetVertex3().GetX()) * (triangle_.GetVertex3().GetY() - y));
 
    if ((param1 == 0 || param2 == 0 || param3 == 0) || (param1 > 0 && param2 > 0 && param3 > 0) || (param1 < 0 && param2 < 0 && param3 < 0))
       return 1;
    else
       return 0;
-   */
+   
 }
 
 bool Triangle::InTriangle(Triangle& triangle_)
 {
-   /*
-   if (PointInTriangle(triangle_.vertex1) == 1 && PointInTriangle(triangle_.vertex2) == 1 && PointInTriangle(triangle_.vertex3) == 1)
+   //1
+   if (triangle_.vertex1.PointInTriangle(*this) == 1 && triangle_.vertex2.PointInTriangle(*this) == 1 && triangle_.vertex3.PointInTriangle(*this) == 1)
       return 1;
    else
       return 0;
-   */
-
    
+   //3
+   /*
    ORIENT or1 = Classify(triangle_.GetVertex1(), vertex1, vertex2);
    ORIENT or2 = Classify(triangle_.GetVertex2(), vertex2, vertex3);
    ORIENT or3 = Classify(triangle_.GetVertex3(), vertex3, vertex1);
@@ -174,8 +177,9 @@ bool Triangle::InTriangle(Triangle& triangle_)
       && (or2 == RIGHT || or2 == BETWEEN)
       && (or3 == RIGHT || or3 == BETWEEN)) return true;
    else return false;
+   */
    
-
+   //2
    //return (PointInTriangle(triangle_.vertex1) && PointInTriangle(triangle_.vertex2) && PointInTriangle(triangle_.vertex3));
 
 }
