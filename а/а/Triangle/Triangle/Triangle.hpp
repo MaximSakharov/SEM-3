@@ -66,6 +66,7 @@ public:
    bool operator==(Triangle& triangle_);
    bool operator!=(Triangle& triangle_);
    void Print() { printf("%s ", name); vertex1.Print(); vertex2.Print(); vertex3.Print(); }
+
    static Triangle* CreateTriangleArray(int size) 
    {
       int save_count = count;
@@ -77,17 +78,27 @@ public:
       return triangles;
    }
 
+/*
+   Функция ORIENT классифицирует положение точки current_p относительно отрезка, заданного точками beg_p и end_p. 
+   Она использует векторный подход для определения следующего:
+
+- LEFT: точка слева от отрезка.
+- RIGHT: точка справа от отрезка.
+- BEHIND: точка находится за началом отрезка.
+- AHEAD: точка находится перед концом отрезка.
+- BETWEEN: точка находится между beg_p и end_p.
+*/
    ORIENT Classify(Point current_p, Point& beg_p, Point& end_p) const
    {
       Point pO = current_p;
-      Point a = end_p - beg_p;
-      Point b = pO - beg_p;
-      double sa = a.GetX() * b.GetY() - b.GetX() * a.GetY();
-      if (sa > 0.0) return LEFT;
-      if (sa < 0.0) return RIGHT;
-      if ((a.GetX() * b.GetX() < 0.0) || (a.GetY() * b.GetY() < 0.0)) return BEHIND;
-      if (a.Length() < b.Length()) return AHEAD;
-      return BETWEEN;
+      Point a = end_p - beg_p;   // вектор от beg_p до end_p
+      Point b = pO - beg_p;      // вектор от beg_p до current_p
+      double sa = a.GetX() * b.GetY() - b.GetX() * a.GetY();   // Вычисляется знак площади параллелограмма (векторное произведение)
+      if (sa > 0.0) return LEFT;    // current_p слева от отрезка (beg_p, end_p)
+      if (sa < 0.0) return RIGHT;   // current_p справа от отрезка (beg_p, end_p)
+      if ((a.GetX() * b.GetX() < 0.0) || (a.GetY() * b.GetY() < 0.0)) return BEHIND; // Если b выходит за пределы a, возвращается BEHIND (точка за началом отрезка).
+      if (a.Length() < b.Length()) return AHEAD;                                     // Если b находится дальше конца отрезка, будет возвращен AHEAD.
+      return BETWEEN;                                                                // В противном случае точка находится между beg_p и end_p(BETWEEN).
    }
 };
 

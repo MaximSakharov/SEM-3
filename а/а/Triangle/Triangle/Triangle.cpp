@@ -2,6 +2,9 @@
 
 #include "Triangle.hpp"
 #include "functions.hpp"
+#include <math.h>
+
+const double epsilon = 1e-9;
 
 double Point::VectorLength() const
 {
@@ -119,8 +122,30 @@ void Triangle::Move(double x_, double y_)
    vertex3.SetY(vertex3.GetY() + y_);
 }
 
+double TriangleArea2(Point& point1_, Point& point2_, Point& point3_)
+{
+   double sub_side1 = Pythag(point1_, point2_);
+   double sub_side2 = Pythag(point2_, point3_);
+   double sub_side3 = Pythag(point3_, point1_);
+
+   double s = (sub_side1 + sub_side2 + sub_side3) / 2;
+
+   // Площадь по формуле Герона
+   double area = sqrt(s * (s - sub_side1) * (s - sub_side2) * (s - sub_side3));
+
+   return area;
+}
+
 bool Triangle::PointInTriangle(Point& point_)
 {
+   double total_area = TriangleArea();
+   double area1 = TriangleArea2(vertex1, vertex2, point_);
+   double area2 = TriangleArea2(vertex2, vertex3, point_);
+   double area3 = TriangleArea2(vertex3, vertex1, point_);
+
+   return fabs(total_area - (area1 + area2 + area3)) < epsilon;
+
+   /*
    double param1 = ((vertex1.GetX() - point_.GetX()) * (vertex2.GetY() - vertex1.GetY()) - (vertex2.GetX() - vertex1.GetX()) * (vertex1.GetY() - point_.GetY()));
    double param2 = ((vertex2.GetX() - point_.GetX()) * (vertex3.GetY() - vertex2.GetY()) - (vertex3.GetX() - vertex2.GetX()) * (vertex2.GetY() - point_.GetY()));
    double param3 = ((vertex3.GetX() - point_.GetX()) * (vertex1.GetY() - vertex3.GetY()) - (vertex1.GetX() - vertex3.GetX()) * (vertex3.GetY() - point_.GetY()));
@@ -129,6 +154,7 @@ bool Triangle::PointInTriangle(Point& point_)
       return 1;
    else
       return 0;
+   */
 }
 
 bool Triangle::InTriangle(Triangle& triangle_)
@@ -140,6 +166,7 @@ bool Triangle::InTriangle(Triangle& triangle_)
       return 0;
    */
 
+   
    ORIENT or1 = Classify(triangle_.GetVertex1(), vertex1, vertex2);
    ORIENT or2 = Classify(triangle_.GetVertex2(), vertex2, vertex3);
    ORIENT or3 = Classify(triangle_.GetVertex3(), vertex3, vertex1);
@@ -147,6 +174,10 @@ bool Triangle::InTriangle(Triangle& triangle_)
       && (or2 == RIGHT || or2 == BETWEEN)
       && (or3 == RIGHT || or3 == BETWEEN)) return true;
    else return false;
+   
+
+   //return (PointInTriangle(triangle_.vertex1) && PointInTriangle(triangle_.vertex2) && PointInTriangle(triangle_.vertex3));
+
 }
 
 void DeleteTriangle(Triangle* triangle_, int k)
