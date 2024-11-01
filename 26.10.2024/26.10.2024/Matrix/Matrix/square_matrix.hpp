@@ -12,7 +12,7 @@ class SquareMatrix : public Matrix
 private:
 
 public:
-   SquareMatrix(int size_ = 0, double** data_ = nullptr) : Matrix(size_, size_, data_)
+   SquareMatrix(int size_ = 2, double** data_ = nullptr) : Matrix(size_, size_, data_)
    {
 
    }
@@ -376,18 +376,18 @@ inline Vector MaxDiagonalElements(SquareMatrix matrix_)
 
    for (int start = 0; start < 2 * n - 1; ++start)
    {
-      double maxElement = -std::numeric_limits<double>::infinity(); // Начальное значение для максимума
+      double maxElement = -std::numeric_limits<double>::infinity(); // ГЌГ Г·Г Г«ГјГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ Г¤Г«Гї Г¬Г ГЄГ±ГЁГ¬ГіГ¬Г 
       int i, j;
 
       
       if (start < n) {
-         i = n - 1; // Начинаем с последней строки
-         j = start; // Начинаем с текущего столбца
+         i = n - 1; // ГЌГ Г·ГЁГ­Г ГҐГ¬ Г± ГЇГ®Г±Г«ГҐГ¤Г­ГҐГ© Г±ГІГ°Г®ГЄГЁ
+         j = start; // ГЌГ Г·ГЁГ­Г ГҐГ¬ Г± ГІГҐГЄГіГ№ГҐГЈГ® Г±ГІГ®Г«ГЎГ¶Г 
       }
       else {
-         i = n - param; // Уменьшаем строку
+         i = n - param; // Г“Г¬ГҐГ­ГјГёГ ГҐГ¬ Г±ГІГ°Г®ГЄГі
          ++param;
-         j = n - 1; // Начинаем с последнего столбца
+         j = n - 1; // ГЌГ Г·ГЁГ­Г ГҐГ¬ Г± ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® Г±ГІГ®Г«ГЎГ¶Г 
       }
 
       while (i >= 0 && j >= 0)
