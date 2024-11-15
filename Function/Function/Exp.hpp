@@ -3,7 +3,7 @@
 class Exp : public Function
 {
 protected:
-   char* name;
+   //char* name;
 public:
    Exp()
    {

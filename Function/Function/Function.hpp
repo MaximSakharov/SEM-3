@@ -8,6 +8,7 @@ class Function
 {
 protected:
    double x;
+   char* name;
 public:
    virtual ~Function(){}
    virtual const char* GetName() const = 0;

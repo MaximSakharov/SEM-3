@@ -3,10 +3,18 @@
 using namespace std;
 
 // Конструктор
-Menu::Menu(Function** functions_, int size_) : functions(functions_), size(size_) 
+Menu::Menu(Function** functions_, int size_) : size(size_) 
 {
    // Дополнительная ячейка для "Exit"
    size++;
+   
+   functions = new Function*[size];
+
+   for (int i = 0; i < size - 1; ++i)
+      functions[i] = functions_[i];
+
+   functions[size - 1] = nullptr;
+
 }
 
 // Метод для выбора объекта

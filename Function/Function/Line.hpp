@@ -3,7 +3,7 @@
 class Line : public Function
 {
 protected:
-   char* name;
+   //char* name;
    double a;
    double b;
 public:
