@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string.h>
 
-#ifndef FUNCTION_H
-#define FUNCTION_H
+#ifndef FUNCTION_HPP
+#define FUNCTION_HPP
 
 class Function
 {
@@ -14,4 +14,4 @@ public:
    virtual const char* GetName() const = 0;
    virtual void Calculate() = 0;
 };
-#endif /* FUNCTION_N */
+#endif /* FUNCTION_HPP */

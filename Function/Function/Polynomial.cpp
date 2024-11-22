@@ -11,18 +11,10 @@ void Polynomial::Calculate()
    for (int i = 0; i < degree + 1; ++i)
       cin >> parameters[i];
 
-   if (degree > 0)
-   {
-      cout << "Enter x = ";
-      cin >> x;
-   }
-   else
-      x = 1;
+   double result = parameters[0];
 
-   double result = 0;
-
-   for (int i = 0; i < degree + 1; ++i)
-      result += parameters[i] * pow(x, degree - i);
+   for (int i = 1; i < degree + 1; ++i)
+      result = result * x + parameters[i];
 
    cout << "y = " << result << endl;
 }
