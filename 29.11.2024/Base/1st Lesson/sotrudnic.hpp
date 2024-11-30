@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+using namespace std;
+
 class Sotrudnik
 {
 private:
@@ -79,7 +81,28 @@ public:
 	void Insert();
 
 	bool Sif(char* s);
+
+	inline friend ostream& operator<<(ostream& stream, const Sotrudnik& emp_);
+
+	inline friend istream& operator>>(istream& stream, Sotrudnik& emp_);
 };
+
+inline ostream& operator<<(ostream& stream, const Sotrudnik& emp_)
+{
+	stream << emp_.name << " " << emp_.year << " " << emp_.sal << " " << emp_.data;
+
+	return stream;
+}
+
+inline istream& operator>>(istream& stream, Sotrudnik& emp_)
+{
+	char inic[5];
+	stream >> emp_.name >> inic >> emp_.year >> emp_.sal >> emp_.data;
+	strcat(emp_.name, " ");
+	strcat(emp_.name, inic);
+
+	return stream;
+}
 
 int Create_f(const char* namefile, int& k, Sotrudnik* arr_);
 

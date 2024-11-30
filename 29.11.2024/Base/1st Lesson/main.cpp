@@ -50,8 +50,12 @@ int main()
 
    Base base(100);
 
-	cin >> base;
-	cout << base;
+	//cin >> base;
+	//cout << base;
+
+   Sotrudnik emp;
+   cin >> emp;
+   cout << emp;
 
 	//Work_Base(base);
 
