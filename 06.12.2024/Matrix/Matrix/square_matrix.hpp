@@ -164,6 +164,41 @@ public:
 
    friend istream& operator>>(istream& stream, SquareMatrix& matrix);
 
+   friend fstream& operator>>(fstream& stream, SquareMatrix& matrix_)
+   {
+      int new_rows = 0;
+      int new_columns = 0;
+
+      stream >> new_rows >> new_columns;
+
+      if (stream.fail() || new_rows <= 0 || new_columns <= 0)
+         throw MatrixInputFormatException();
+
+      matrix_.Delete();
+
+      matrix_.rows = new_rows;
+      matrix_.columns = new_columns;
+
+      matrix_.data = new double* [matrix_.rows];
+      for (int i = 0; i < matrix_.rows; ++i)
+         matrix_.data[i] = new double[matrix_.columns];
+
+
+      for (int i = 0; i < matrix_.rows; i++)
+      {
+         for (int j = 0; j < matrix_.columns; j++)
+         {
+            stream >> matrix_[i][j];
+            if (stream.fail())
+            {
+               throw class MatrixIncorrectSupplyOfMatrixElementsException();
+            }
+         }
+      }
+
+      return stream;
+   }
+
    vector<double> PathToVector(int m)
    {
       SquareMatrix new_matr;

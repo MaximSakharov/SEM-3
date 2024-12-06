@@ -81,21 +81,21 @@ using namespace std;
          Matrix matrix1;
          SquareMatrix matrix2;
 
-         ifstream file1("matrix.txt");
-         ifstream file2("square_matrix.txt");
+         fstream file1("matrix.txt");
+         fstream file2("square_matrix.txt");
 
          if (!file1.is_open() || !file2.is_open())
          {
-            std::cerr << "Не удалось открыть файл!" << std::endl;
+            std::cerr << "Can't open file!" << std::endl;
             return 1;
          }
 
          file1 >> matrix1;
          file2 >> matrix2;
 
-         std::cout << "Матрица из файла:" << std::endl;
-         std::cout << matrix1 << endl;
-         std::cout << matrix2 << endl;
+         cout << "Matrices from file:" << std::endl;
+         cout << matrix1 << endl;
+         cout << matrix2 << endl;
 
          vector<double> vect = matrix2.PathToVector(3);
          for (int i = 0; i < vect.size(); ++i)
